@@ -11,6 +11,6 @@ the file exceeds a given maximum width and/or height using ImageMagick.
 
 ## Usage
 
-Install the extension, then go to`System->Preferences` and specify the path to ImageMagick and the maximum filewidth and fileheight.
+Install the extension, then go to`System->Preferences` and specify the path to ImageMagick and the maximum file width and file height.
 
 ![](https://github.com/iwyg/resizeupload/raw/master/docs/resizeupload_settings.png)
