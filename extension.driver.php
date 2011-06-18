@@ -3,7 +3,7 @@
 	Class extension_resizeupload extends Extension{
 	
 		public function about(){
-			return array('name' => 'Resize Upladed Image Files',
+			return array('name' => 'Resize Uploaded Image Files',
 						 'version' => '1',
 						 'release-date' => '2011-06-18',
 						 'author' => array('name' => 'Thomas Appel',
