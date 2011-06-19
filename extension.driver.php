@@ -66,6 +66,8 @@
 		
 		public function processImageFile(&$field, $validator) {
 			
+			
+			
 			if (!$meta = getimagesize($file = WORKSPACE . $field['file'])) {
 				return;				
 			}
@@ -75,10 +77,10 @@
 				$path = WORKSPACE . preg_replace('/'.$filename[0].'/', '', $field['file']);
 				$tempfile = $path . 'temp_' . $filename[0];
 				
+				$conf = Symphony::Configuration()->get('resizeupload');	
+				
 				rename($file, $tempfile);
-				#Symphony::Configuration()->get($name = null, $group)
-				$conf = Symphony::Configuration()->get('resizeupload');
-
+				
 				if ($meta[0] > $conf['max_w'] || $meta[1] > $conf['max_h']) {
 					
 					self::convert($tempfile, $file, $conf['max_w'],$conf['max_h'], $conf['im_path']);
@@ -92,7 +94,7 @@
 
 						unlink($tempfile);					
 					} else {
-						rename($tempfile, $file);		
+						rename($tempfile, $file);
 					}					
 				} else {
 					return;
