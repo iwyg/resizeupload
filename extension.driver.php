@@ -79,11 +79,11 @@
 				
 				$conf = Symphony::Configuration()->get('resizeupload');	
 				
-				rename($file, $tempfile);
-				
 				if ($meta[0] > $conf['max_w'] || $meta[1] > $conf['max_h']) {
 					
-					self::convert($tempfile, $file, $conf['max_w'],$conf['max_h'], $conf['im_path']);
+					rename($file, $tempfile);					
+
+					self::convert($tempfile, $file, $conf['max_w'],$conf['max_h'], $conf['im_path']);					
 					
 					if (file_exists($file) && is_readable($file)) {
 
