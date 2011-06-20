@@ -14,3 +14,7 @@ the file exceeds a given maximum width and/or height using ImageMagick.
 Install the extension, then go to `System->Preferences` and specify the path to ImageMagick and the maximum file width and file height.
 
 ![](https://github.com/iwyg/resizeupload/raw/master/docs/resizeupload_settings.png)
+
+## Changelog
+- 2011-06-18: initial release
+- 2011-06-20: entries_data  table now gets updated with the corrected file meta data
