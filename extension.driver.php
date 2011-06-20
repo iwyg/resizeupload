@@ -4,7 +4,7 @@
 	
 		public function about(){
 			return array('name' => 'Resize Uploaded Image Files',
-						 'version' => '1',
+						 'version' => '1.0.2',
 						 'release-date' => '2011-06-18',
 						 'author' => array('name' => 'Thomas Appel',
 										   'website' => 'http://thomas-appel.com')
@@ -20,12 +20,12 @@
 					),				
 					array(
 						'page' => '/publish/edit/',
-						'delegate' => 'EntryPreEdit',
+						'delegate' => 'EntryPostEdit',
 						'callback' => 'resizeUpload'
 					),
 					array(
 						'page' => '/publish/new/',
-						'delegate' => 'EntryPreCreate',
+						'delegate' => 'EntryPostCreate',
 						'callback' => 'resizeUpload'
 					)				
 			);
@@ -48,8 +48,10 @@
 		
 		public function resizeUpload($context) {
 			
-			$entry = $context['entry'];
-			$content = $entry->getData();
+			$entry = & $context['entry'];
+			$entry_id = $entry->get('id');
+			
+			$content = & $entry->getData();
 			
 			$fM = new FieldManager($this->_Parent);
 			
@@ -58,15 +60,18 @@
 					# prefilter if field is image
 					$current_field = $fM->fetch($i);					
 					if (preg_match('/^image+\/.*?/',$field['mimetype'])) {
-						$this->processImageFile(&$field, $validator);						
+						$this->processImageFile(&$field, $i, $entry_id);																		
 					} 					
 				}
-			}			
+			}
+			/*
+			echo '<pre>';
+			print_r($this);
+			echo '</pre>';
+			*/
 		}
 		
-		public function processImageFile(&$field, $validator) {
-			
-			
+		public function processImageFile(&$field, $field_id, $entry_id) {
 			
 			if (!$meta = getimagesize($file = WORKSPACE . $field['file'])) {
 				return;				
@@ -91,6 +96,10 @@
 						#$field['size'] = General::formatFilesize(filesize($file));
 						$field['size'] = filesize($file);
 						$field['meta'] = serialize(fieldUpload::getMetaInfo($file, $field['mimetype']));					
+						Symphony::Database()->update($field, 'tbl_entries_data_'.$field_id, "`entry_id` = '$entry_id'");
+						#fieldUpload::__OK__;
+						#$uF = new fieldUpload($this->_Parent);
+						#$uF->processRawFieldData($_POST['fields'], true);
 
 						unlink($tempfile);					
 					} else {
