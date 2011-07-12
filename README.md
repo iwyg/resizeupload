@@ -18,3 +18,4 @@ Install the extension, then go to `System->Preferences` and specify the path to 
 ## Changelog
 - 2011-06-18: initial release
 - 2011-06-20: entries_data  table now gets updated with the corrected file meta data
+- 2011-07-11: added support for uniqueupload field

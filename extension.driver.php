@@ -56,7 +56,8 @@
 			$fM = new FieldManager($this->_Parent);
 			
 			foreach($content as $i => $field) {				
-				if ($fM->fetchFieldTypeFromID($i) == 'upload') {
+				$fieldType = $fM->fetchFieldTypeFromID($i);
+				if ($fieldType == 'upload' || $fieldType == 'uniqueupload') {
 					# prefilter if field is image
 					$current_field = $fM->fetch($i);					
 					if (preg_match('/^image+\/.*?/',$field['mimetype'])) {
@@ -64,11 +65,6 @@
 					} 					
 				}
 			}
-			/*
-			echo '<pre>';
-			print_r($this);
-			echo '</pre>';
-			*/
 		}
 		
 		public function processImageFile(&$field, $field_id, $entry_id) {
