@@ -4,7 +4,7 @@
 	
 		public function about(){
 			return array('name' => 'Resize Uploaded Image Files',
-						 'version' => '1.0.2',
+						 'version' => '1.0.3',
 						 'release-date' => '2011-06-18',
 						 'author' => array('name' => 'Thomas Appel',
 										   'website' => 'http://thomas-appel.com')
@@ -142,9 +142,7 @@
 			
 			$label = Widget::Label('Maximum Image Width');
 			$label->appendChild(
-				Widget::Input(
-					'settings[resizeupload][max_w]',
-					General::Sanitize(Symphony::Configuration()->get('max_w', 'resizeupload'))
+				General::Sanitize(Symphony::Configuration()->get('max_w', 'resizeupload'))
 				)
 			);
 			$group->appendChild($label);
