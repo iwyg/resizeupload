@@ -142,7 +142,9 @@
 			
 			$label = Widget::Label('Maximum Image Width');
 			$label->appendChild(
-				General::Sanitize(Symphony::Configuration()->get('max_w', 'resizeupload'))
+				Widget::Input(
+					'settings[resizeupload][max_w]',
+					intval(General::Sanitize(Symphony::Configuration()->get('max_w', 'resizeupload')))
 				)
 			);
 			$group->appendChild($label);
@@ -151,7 +153,7 @@
 			$label->appendChild(
 				Widget::Input(
 					'settings[resizeupload][max_h]',
-					General::Sanitize(Symphony::Configuration()->get('max_h', 'resizeupload'))
+					intval(General::Sanitize(Symphony::Configuration()->get('max_h', 'resizeupload')))
 				)
 			);
 			$group->appendChild($label);
