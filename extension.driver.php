@@ -4,7 +4,7 @@
 	
 		public function about(){
 			return array('name' => 'Resize Uploaded Image Files',
-						 'version' => '1.0.3',
+						 'version' => '1.0.4',
 						 'release-date' => '2011-06-18',
 						 'author' => array('name' => 'Thomas Appel',
 										   'website' => 'http://thomas-appel.com')
@@ -61,7 +61,7 @@
 					# prefilter if field is image
 					$current_field = $fM->fetch($i);					
 					if (preg_match('/^image+\/.*?/',$field['mimetype'])) {
-						$this->processImageFile(&$field, $i, $entry_id);																		
+						$this->processImageFile($field, $i, $entry_id);																		
 					} 					
 				}
 			}
@@ -89,13 +89,11 @@
 					if (file_exists($file) && is_readable($file)) {
 
 						require_once (TOOLKIT . '/fields/field.upload.php');
-						#$field['size'] = General::formatFilesize(filesize($file));
+
 						$field['size'] = filesize($file);
 						$field['meta'] = serialize(fieldUpload::getMetaInfo($file, $field['mimetype']));					
+
 						Symphony::Database()->update($field, 'tbl_entries_data_'.$field_id, "`entry_id` = '$entry_id'");
-						#fieldUpload::__OK__;
-						#$uF = new fieldUpload($this->_Parent);
-						#$uF->processRawFieldData($_POST['fields'], true);
 
 						unlink($tempfile);					
 					} else {
@@ -122,7 +120,7 @@
 		 */
 		
 		public static function convert($ifile = null, $ofile = null, $maxw = null, $maxh = null, $impath = NULL){			
-			return exec("{$impath}convert $ifile -thumbnail {$maxw}x{$maxh} $ofile");
+			exec("{$impath}convert $ifile -thumbnail {$maxw}x{$maxh} $ofile");
 		}
 		
 		public function __appendPreferences($context) {
@@ -144,7 +142,7 @@
 			$label->appendChild(
 				Widget::Input(
 					'settings[resizeupload][max_w]',
-					intval(General::Sanitize(Symphony::Configuration()->get('max_w', 'resizeupload')))
+					General::Sanitize(Symphony::Configuration()->get('max_w', 'resizeupload'))
 				)
 			);
 			$group->appendChild($label);
@@ -153,7 +151,7 @@
 			$label->appendChild(
 				Widget::Input(
 					'settings[resizeupload][max_h]',
-					intval(General::Sanitize(Symphony::Configuration()->get('max_h', 'resizeupload')))
+					General::Sanitize(Symphony::Configuration()->get('max_h', 'resizeupload'))
 				)
 			);
 			$group->appendChild($label);
