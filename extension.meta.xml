@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension id="resizeupload" status="released" xmlns="http://symphony-cms.com/schemas/extension/1.0">
+	<name>resizeupload</name>
+	<description>Resizes uploaded images via imagemagick before saving</description>
+	<url type="discuss">http://symphony-cms.com/discuss/thread/72056/</url>
+	<repo type="github">https://github.com/iwyg/resizeupload</repo>
+	<types>
+		<type>other</type>
+	</types>
+	<authors>
+		<author>
+			<name github="iwyg" symphony="iwyg">Thomas Appel</name>
+			<website>http:/thomas-appel.com</website>
+		</author>
+	</authors>
+	<releases>
+		<release version="1.2" date="2011-07-11" min="2.2.5">
+			- added support for uniqueupload field
+		</release>
+		<release version="1.1" date="2011-06-20" min="2.2.5">
+			- entries_data table now gets updated with the corrected file meta data
+		</release>
+		<release version="1.0" date="2011-06-18" min="2.2">
+			- initial release
+		</release>
+	</releases>
+</extension>
